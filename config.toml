@@ -2,3 +2,43 @@ baseURL = "http://localhost:1313"
 languageCode = "en-us"
 title = "evan's weekly updates"
 theme = "kiss"
+copyright = "&copy; <a href=\"https://github.com/ribice\">Evan Dwyer</a> 2018"
+disqusShortname = "shortname"
+googleAnalytics = ""
+# Number of posts per page
+Paginate = 5
+enableRobotsTXT = true
+
+
+[params.assets]
+customCSS = ["css/custom.css"]
+
+[params.info]
+adsense = "" # Adsense ID (ID only, without ca-pub-)
+enableSocial = true # Adds OpenGraph and Twitter cards
+homeTitle = "weekly updates" # Title for home page
+poweredby = true # Adds powered by hugo and kiss below Copyright
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter Page username. If not set, params.social.twitter will be used.
+
+[params.social]
+
+twitter = "CyberEveryword"
+github = "weeklyupdates"
+email = "evan.dwyer@cuny.jjay.edu"
+linkedin = ""
+facebook = ""
+instagram = ""
+codepen = ""
+
+[taxonomies]
+tag ="tags"
+
+[blackfriday]
+hrefTargetBlank = true
