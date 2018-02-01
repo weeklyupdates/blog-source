@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>evan&#39;s weekly updates</title>
+    <link>https://weeklyupdates.github.io/</link>
+    <description>Recent content on evan&#39;s weekly updates</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 31 Jan 2018 19:33:31 -0500</lastBuildDate>
+    
+	<atom:link href="https://weeklyupdates.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2 - The Final Placeholder</title>
+      <link>https://weeklyupdates.github.io/posts/2/</link>
+      <pubDate>Wed, 31 Jan 2018 19:33:31 -0500</pubDate>
+      
+      <guid>https://weeklyupdates.github.io/posts/2/</guid>
+      <description>Hello again. This is the final placeholder entry.
+I don&amp;rsquo;t really like using markdown, but why not.
+It is nice to write entries in VIM. I wonder if it looks terrible. I am typing more to see how a large paragraph looks. Sometimes I do words per minute speedtests online. I can type 90 words per minute. I do it in a strange way; it is not the normal home row method.</description>
+    </item>
+    
+    <item>
+      <title>1 - A Placeholder Entry</title>
+      <link>https://weeklyupdates.github.io/posts/1/</link>
+      <pubDate>Wed, 31 Jan 2018 19:32:31 -0500</pubDate>
+      
+      <guid>https://weeklyupdates.github.io/posts/1/</guid>
+      <description>Hello, everyone. This is a placeholder entry. It shall be removed.</description>
+    </item>
+    
+  </channel>
+</rss>
