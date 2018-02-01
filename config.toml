@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "evan's weekly updates"
 theme = "kiss"
 copyright = "&copy; <a href=\"https://github.com/ribice\">Evan Dwyer</a> 2018"
-disqusShortname = "shortname"
+# disqusShortname = "shortname"
 googleAnalytics = ""
 # Number of posts per page
 Paginate = 5
@@ -29,7 +29,7 @@ page = "" # Twitter Page username. If not set, params.social.twitter will be use
 
 [params.social]
 
-twitter = "CyberEveryword"
+twitter = "cher"
 github = "weeklyupdates"
 email = "evan.dwyer@cuny.jjay.edu"
 linkedin = ""

@@ -6,10 +6,9 @@
     <description>Recent content in Posts on evan&#39;s weekly updates</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/ribice&#34;&gt;Evan Dwyer&lt;/a&gt; 2018</copyright>
     <lastBuildDate>Wed, 31 Jan 2018 19:33:31 -0500</lastBuildDate>
-    
-	<atom:link href="https://weeklyupdates.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="https://weeklyupdates.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>2 - The Final Placeholder</title>
@@ -17,9 +16,18 @@
       <pubDate>Wed, 31 Jan 2018 19:33:31 -0500</pubDate>
       
       <guid>https://weeklyupdates.github.io/posts/2/</guid>
-      <description>Hello again. This is the final placeholder entry.
-I don&amp;rsquo;t really like using markdown, but why not.
-It is nice to write entries in VIM. I wonder if it looks terrible. I am typing more to see how a large paragraph looks. Sometimes I do words per minute speedtests online. I can type 90 words per minute. I do it in a strange way; it is not the normal home row method.</description>
+      <description>&lt;p&gt;Hello again.  This is the final placeholder entry.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Markdown&#34; target=&#34;_blank&#34;&gt;I don&amp;rsquo;t really like using markdown, but why not.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It is nice to write entries in &lt;a href=&#34;https://http://www.vim.org/&#34; target=&#34;_blank&#34;&gt;VIM&lt;/a&gt;.  I wonder if it looks terrible.  I am typing more to see how a large paragraph looks.  Sometimes I do words per minute speedtests online.  I can type 90 words per minute.  I do it in a strange way; it is not the normal home row method.  I did not take a keyboarding class in high school, because I figured other classes would be more worth my time.  Little did I know, virtually none of the classes in my high school were worth my time.&lt;/p&gt;
+
+&lt;p&gt;And with that, this final temporary update comes to a close.  I hope you, who were lucky enough to have seen it, enjoyed it.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Evan&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
     <item>
@@ -28,7 +36,8 @@ It is nice to write entries in VIM. I wonder if it looks terrible. I am typing m
       <pubDate>Wed, 31 Jan 2018 19:32:31 -0500</pubDate>
       
       <guid>https://weeklyupdates.github.io/posts/1/</guid>
-      <description>Hello, everyone. This is a placeholder entry. It shall be removed.</description>
+      <description>&lt;p&gt;Hello, everyone.  This is a placeholder entry.  It shall be removed.&lt;/p&gt;
+</description>
     </item>
     
   </channel>
