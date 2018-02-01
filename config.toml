@@ -2,7 +2,7 @@ baseURL = "http://localhost:1313"
 languageCode = "en-us"
 title = "evan's weekly updates"
 theme = "kiss"
-copyright = "&copy; <a href=\"https://github.com/ribice\">Evan Dwyer</a> 2018"
+copyright = "&copy; <a href=\"https://github.com/weeklyupdates\">Evan Dwyer</a> 2018"
 disqusShortname = "weeklyupdates"
 googleAnalytics = ""
 # Number of posts per page
