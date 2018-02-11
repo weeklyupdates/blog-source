@@ -2,7 +2,7 @@
 
 spawn git push -u origin master
 expect "Username for 'https://github.com':"
-send -- "$githubName\r"
+send -- "weeklyupdates\r"
 expect "Password for 'https://weeklyupdates@github.com':"
 interact ++ return
 send "\r"

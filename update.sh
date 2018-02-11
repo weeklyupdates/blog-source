@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set githubName "weeklyupdates"
-
 touch bufferA
 cd ~/weeklyupdates.github.io
 touch bufferB
