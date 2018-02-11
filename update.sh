@@ -2,9 +2,9 @@
 
 set githubName "weeklyupdates"
 
-touch buffer.1
+git rm buffer.1
 cd ~/weeklyupdates.github.io
-touch buffer.2
+git rm buffer.2
 cd ~/blog-source
 git add * 
 python ~/blog-source/commit-source.py
