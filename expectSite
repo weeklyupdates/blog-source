@@ -1,0 +1,9 @@
+#!/usr/bin/expect -f
+
+spawn git push -u origin master
+expect "Username for 'https://github.com':"
+send -- "$githubName\r"
+expect "Password for 'https://weeklyupdates@github.com':"
+interact ++ return
+send "\r"
+expect EOF

@@ -2,24 +2,14 @@
 
 set githubName "weeklyupdates"
 
-git rm buffer.1
+touch bufferA
 cd ~/weeklyupdates.github.io
-git rm buffer.2
+touch bufferB
 cd ~/blog-source
 git add * 
 python ~/blog-source/commit-source.py
-/usr/bin/expect <<EOD
-spawn git push -u origin master
-expect "Username for 'https://github.com':"
-send -- "$githubName\r"
-interact
-EOD
+~/blog-source/expectBlog
 cd ~/weeklyupdates.github.io
 git add * 
 python ~/blog-source/commit-site.py
-/usr/bin/expect <<EOD
-spawn git push -u origin master
-expect "Username for 'https://github.com':"
-send -- "$githubName\r"
-interact
-EOD
+~/blog-source/expectSite
