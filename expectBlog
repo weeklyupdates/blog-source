@@ -5,5 +5,4 @@ expect "Username for 'https://github.com':"
 send -- "weeklyupdates\r"
 expect "Password for 'https://weeklyupdates@github.com':"
 interact ++ return
-send "\r"
 expect EOF

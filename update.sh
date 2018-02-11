@@ -1,8 +1,8 @@
 #!/bin/bash
 
-touch bufferA
+git rm bufferA
 cd ~/weeklyupdates.github.io
-touch bufferB
+git rm bufferB
 cd ~/blog-source
 git add * 
 python ~/blog-source/commit-source.py
