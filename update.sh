@@ -2,7 +2,7 @@
 
 hugo --baseURL="https://weeklyupdates.github.io"
 cp -r ~/weeklyupdates.github.io/* ~/weeklyupdates.github.io.backup/
-rm -rf ~/weeklyupdates.github.io/
+rm -rf ~/weeklyupdates.github.io/*
 cp -r ~/blog-source/public/* ~/weeklyupdates.github.io
 git add * 
 python ~/blog-source/commit-source.py
