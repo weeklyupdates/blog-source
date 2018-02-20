@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>3 - SHA256, time, and BFT | evan&#39;s weekly updates</title>
+
+<meta property='og:title' content='3 - SHA256, time, and BFT - evan&#39;s weekly updates'>
+<meta property='og:description' content='Hello. This week, I&rsquo;ve primarily been looking at some of the fundamentals behind Bitcoin.
+Specifically, I&rsquo;ve been doing a deep dive into SHA256, with an eye toward implementing SHA1/SHA256 in Python (or C if I&rsquo;m feeling ambitious) to look at some attacking possibilities. I&rsquo;m also trying to pin down what specific security needs these algorithms are intended to satisfy. Thinking like an attacker, the first, best strategy for exploiting a security system is asking &ldquo;What kind of attack are they trying to prevent, and how can I gain the thing that this attack intends to gain, while performing a completely different attack?'>
+<meta property='og:url' content='https://weeklyupdates.github.io/posts/3sha256timeandbft/'>
+<meta property='og:site_name' content='evan&#39;s weekly updates'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/b6eeb86cb60760849e21fe283d10bcc7?s=256'><meta property='article:author' content='https://facebook.com/Weekly-Updates-803033783230476'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-02-19T16:50:46-05:00'/><meta property='article:modified_time' content='2018-02-19T16:50:46-05:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@WeeklyUpdatesJJ'><meta name='twitter:creator' content='@WeeklyUpdatesJJ'>
+<link rel="stylesheet" href="https://weeklyupdates.github.io/css/style.css"/><link rel='stylesheet' href='/css/custom.css'></head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://weeklyupdates.github.io"><h1 class="title is-4">evan&#39;s weekly updates</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile"><a class="level-item" href='mailto:evan.dwyer@cuny.jjay.edu' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" href='https://facebook.com/Weekly-Updates-803033783230476' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" href='https://github.com/weeklyupdates' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" href='https://twitter.com/WeeklyUpdatesJJ' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="subtitle is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">February 19, 2018</h2>
+    <h1 class="title">3 - SHA256, time, and BFT</h1>
+    
+    <div class="content">
+      <p>Hello.  This week, I&rsquo;ve primarily been looking at some of the fundamentals behind Bitcoin.</p>
+
+<p>Specifically, I&rsquo;ve been doing a deep dive into SHA256, with an eye toward implementing SHA1/SHA256 in Python (or C if I&rsquo;m feeling ambitious) to look at some attacking possibilities.  I&rsquo;m also trying to pin down what specific security needs these algorithms are intended to satisfy.  Thinking like an attacker, the first, best strategy for exploiting a security system is asking &ldquo;What kind of attack are they trying to prevent, and how can I gain the thing that this attack intends to gain, while performing a completely different attack?&rdquo;</p>
+
+<p>As a trivial example of this thought process, if someone answers a consensus problem by incentivizing honest node behavior and democratizing power over the blockchain, a Sybil attack seeks to bypass these safeguards via playing by different rules.  This is the give and take of security: Eve wants to, say, forge the blockchain.  So, we democratize power over it equally to Alice, Bob, and Eve.  So, Eve attacks the democratization by posing as several nodes.  Whatever tactic we use to prevent Eve&rsquo;s strategy will, more likely than not, introduce more opportunities to exploit.  The point is that Eve doesn&rsquo;t bother trying to further empower her node unless that&rsquo;s easy; rather, she lets the democratization of power defeat her &ldquo;Eve, the 1-node bad actor&rdquo; power, but then seeks to undermine <em>what the democratization was supposed to get us</em> (limit 1 actor&rsquo;s power via limiting 1 node&rsquo;s power).  One of the things that strengthens attackers so much in general is that further safeguards against the Sybil attack represent <em>more vulnerability</em> than just a line of dominos (defeat the anti-Sybil so you can defeat the democratization so you can forge blockchain), because those safeguards could (and in most systems, usually will) establish entirely new exploit possibilities.  Suppose we implement an anti-Sybil mechanism and inadvertently provide a dramatically easier way to de-anonymize nodes than just tracing historical transactions.  This opens a whole new class of attacks.</p>
+
+<p>Anyway, to this end I&rsquo;ve primarily been focused on reading the <a href="https://csrc.nist.gov/Projects/Hash-Functions/NIST-Policy-on-Hash-Functions" target="_blank">NIST</a> specification of SHA256, <a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf" target="_blank">FIPS 180-4</a>.  Regarding the security reasoning behind all this, <a href="https://bitcointalk.org/index.php?topic=45456.0" target="_blank">this bitcointalk thread</a> is very interesting.  I&rsquo;ve also found some implementations, such as <a href="https://stackoverflow.com/questions/11937192/sha-256-pseuedocode" target="_blank">the one in an answer here</a> (Python), and <a href="https://github.com/nayuki/Bitcoin-Cryptography-Library" target="_blank">this library by Github user Nayuki</a> (mostly C++ and Java), and of course, the <a href="https://github.com/bitcoin/bitcoin/blob/master/src/crypto/sha256.cpp" target="_blank">implementation</a> in Bitcoin Core.  Given that Python is what I know and it&rsquo;s used a lot, I plan to focus a lot of my digging into <a href="https://docs.python.org/2/library/hashlib.html" target="_blank">the hashlib Python module</a>, which is used by <a href="https://github.com/petertodd/python-bitcoinlib" target="_blank">python-bitcoinlib</a>, <a href="https://github.com/richardkiss/pycoin" target="_blank">pycoin</a>, and <a href="https://github.com/vbuterin/pybitcointools/tree/aeb0a2bbb8bbfe421432d776c649650eaeb882a5" target="_blank">pybitcointools</a>.</p>
+
+<p>I&rsquo;ve also been looking at Byzantine Fault Tolerance and time in distributed systems, as I continue to believe that both of those general concepts are roughly the most important ones in the space.  Byzantine Fault Tolerance, or consensus in distributed systems generally, that is the prize.  Time in distributed systems is probably the major engineering challenge.  To put that last thought another way, the ability to determine, in a distributed system, what happened and when, is more or less the ability to protect against any attacks on the network.  One could even argue that these problems collapse into each other: achieving consensus without a centralized authority (and therefore without guarantees on the honesty or integrity of individual nodes), just is being able to specify what happened and when in a distributed system.  After all, the original Byzantine Generals paper solves the overarching problem via <em>signed messages</em>.  And the only important thing about signing a message is its integrity guarantee&hellip;. which brings us back to Sybil attacks and finding ways around things.  All signatures do is guarantee integrity.  The assumption, that, say, only Alice knows her own private key is not something we can (ever!) guarantee cryptographically.</p>
+
+<p>A similar problem is, as every cryptographer knows, that there is a necessary gap between the mathematical security guarantee of a cryptographic construct, and any implementation of that construct.  This is precisely why I&rsquo;m looking at SHA implementations; not to find vulnerabilities in the fundamental algorithm (if I could do that, I&rsquo;d be getting paid by Google, not paying John Jay), but to find attack surfaces in real world implementations.</p>
+
+<p>For all these reasons, again, the question of attacking the blockchain is in reality the question: &ldquo;What kind of security does a user want from a blockchain and its underlying crypto, and how can we violate it?&rdquo;  So, evaluating blockchain security boils down to enumerating the things a blockchain might be used to get us, what further social engineering, implementation, and other vulnerability sources emerge in a system addressing those needs, and (as much as is possible) specifying and quantifying what it takes to exploit those vulnerabilities.  Going a little deeper, one needs to understand time in distributed systems, as well as BFT consensus, to understand <em>what kinds of things</em> you can get from a blockchain in the first place (as opposed to from, say, a relational database, or a simple digital signature or Merkle tree of signatures).</p>
+
+<p>I&rsquo;m not sure how helpful these entries are for CSCI 385.  I&rsquo;ll try to attend a lecture this week or next to get a feel for where that class is at.  If perhaps you are one of these students, and less interested in my thoughts about security and more interested in something current, another noteworthy thing I&rsquo;ve looked at this week is <a href="https://youtu.be/2Zlcgt8FVz4" target="_blank">this video</a>, which discusses some of the practical algorithms people are looking for to get what Proof-of-Work gets us (BFT, consensus).  For my purposes, this kind of thing is on the periphery; for better or worse, Proof-of-Work is the algorithm we have, and it <em>is</em> BFT, it <em>did</em> get implemented widely, and people <em>will</em> try to leverage it into new tech (not to mention hoard Bitcoin).  However, the criticisms of Proof-of-Work and descriptions of attacks on Bitcoin are, potentially, relevant.  For example, the fundamental idea that &ldquo;No one will attack the network because if you had all that capacity to rewrite history, you&rsquo;d just use it to mine honestly,&rdquo; bears some further consideration&hellip;  Yes, it would be better (for you) to honestly mine than it would be to take over and forge forever.  But is that more profitable than forging for an hour, then mining honestly going forward?  Or selling your ASICs off after you pull off your attack?  The video also has a nice rant against Proof-of-Stake, and starts to get into talk of governance, etc.  This may or may not be the real meat of public blockchain security talk.  Only time will tell.</p>
+
+<p>And with that, I will return to studying some dry algorithmic specification and Python code.</p>
+
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'weeklyupdates';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/weeklyupdates">Evan Dwyer</a> 2018</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+</body>
+</html>

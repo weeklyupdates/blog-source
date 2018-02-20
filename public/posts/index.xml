@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/weeklyupdates&#34;&gt;Evan Dwyer&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Sun, 11 Feb 2018 12:27:41 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 19 Feb 2018 16:50:46 -0500</lastBuildDate>
     
 	<atom:link href="https://weeklyupdates.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>3 - SHA256, time, and BFT</title>
+      <link>https://weeklyupdates.github.io/posts/3sha256timeandbft/</link>
+      <pubDate>Mon, 19 Feb 2018 16:50:46 -0500</pubDate>
+      
+      <guid>https://weeklyupdates.github.io/posts/3sha256timeandbft/</guid>
+      <description>Hello. This week, I&amp;rsquo;ve primarily been looking at some of the fundamentals behind Bitcoin.
+Specifically, I&amp;rsquo;ve been doing a deep dive into SHA256, with an eye toward implementing SHA1/SHA256 in Python (or C if I&amp;rsquo;m feeling ambitious) to look at some attacking possibilities. I&amp;rsquo;m also trying to pin down what specific security needs these algorithms are intended to satisfy. Thinking like an attacker, the first, best strategy for exploiting a security system is asking &amp;ldquo;What kind of attack are they trying to prevent, and how can I gain the thing that this attack intends to gain, while performing a completely different attack?</description>
+    </item>
     
     <item>
       <title>2 - Overview</title>
